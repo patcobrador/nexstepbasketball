@@ -1,0 +1,13 @@
+{
+  "name": "nextstepbasketball",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "check": "node --check app.js",
+    "smoke": "node .logs/check-ui.cjs",
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0"
+  }
+}

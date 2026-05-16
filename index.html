@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Next Step Basketball</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary">
+        <div class="brand">
+          <img class="brand-logo" src="assets/nextstep-basketball-logo.png" alt="" />
+          <div>
+            <strong>Next Step</strong>
+            <span>Basketball Academy</span>
+          </div>
+        </div>
+
+        <nav class="nav-list">
+          <button class="nav-item is-active" data-view="dashboard"><span class="icon" aria-hidden="true">H</span>Dashboard</button>
+          <button class="nav-item" data-view="curriculum"><span class="icon" aria-hidden="true">C</span>Curriculum</button>
+          <button class="nav-item" data-view="sessions"><span class="icon" aria-hidden="true">S</span>Sessions</button>
+          <button class="nav-item" data-view="progress"><span class="icon" aria-hidden="true">P</span>Progress</button>
+          <button class="nav-item" data-view="admin"><span class="icon" aria-hidden="true">A</span>Admin</button>
+        </nav>
+
+        <div class="player-switcher">
+          <label for="playerSelect">Athlete</label>
+          <select id="playerSelect"></select>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Player pathway</p>
+            <h1 id="pageTitle">Training Dashboard</h1>
+          </div>
+          <div class="top-actions">
+            <button class="icon-button" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">T</button>
+            <button class="primary-button" id="openGoalModal">Set Goal</button>
+          </div>
+        </header>
+
+        <section class="student-summary" aria-label="Student summary">
+          <div class="student-card">
+            <div class="avatar" id="studentInitials" aria-hidden="true"></div>
+            <div>
+              <h2 id="studentName"></h2>
+              <p id="studentMeta"></p>
+            </div>
+          </div>
+          <div class="summary-metrics" id="summaryMetrics"></div>
+        </section>
+
+        <section class="view is-visible" id="dashboardView">
+          <section class="brand-banner" aria-label="Next Step Basketball">
+            <div>
+              <p class="eyebrow">Personalised basketball development</p>
+              <h2>Every player has a next step.</h2>
+              <p>Assign the right module, track the work, and connect homework to in-person coaching.</p>
+            </div>
+          </section>
+
+          <div class="dashboard-grid">
+            <section class="panel court-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">This week</p>
+                  <h2>Skill Focus</h2>
+                </div>
+                <span class="status-pill" id="weeklyStatus"></span>
+              </div>
+              <div class="court-visual" aria-label="Basketball training court">
+                <div class="court-line half"></div>
+                <div class="court-line arc"></div>
+                <div class="court-line key"></div>
+                <div class="court-line circle"></div>
+                <button class="hotspot active" style="--x: 72%; --y: 30%" data-skill="shooting">Shooting</button>
+                <button class="hotspot" style="--x: 45%; --y: 68%" data-skill="handle">Handle</button>
+                <button class="hotspot" style="--x: 22%; --y: 38%" data-skill="defence">Defence</button>
+              </div>
+              <div class="focus-detail" id="focusDetail"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Coursework</p>
+                  <h2>Next Lessons</h2>
+                </div>
+              </div>
+              <div class="lesson-list" id="lessonList"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Coach notes</p>
+                  <h2>Homework</h2>
+                </div>
+                <button class="ghost-button" id="completeHomework">Mark done</button>
+              </div>
+              <div class="homework-box" id="homeworkBox"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Upcoming</p>
+                  <h2>In-Person Session</h2>
+                </div>
+              </div>
+              <div class="session-card" id="nextSession"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="curriculumView">
+          <div class="curriculum-layout">
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Structured path</p>
+                  <h2>Curriculum Map</h2>
+                </div>
+              </div>
+              <div class="module-stack" id="moduleStack"></div>
+            </section>
+            <section class="panel lesson-detail" id="moduleDetail"></section>
+          </div>
+        </section>
+
+        <section class="view" id="sessionsView">
+          <div class="session-board" id="sessionBoard"></div>
+        </section>
+
+        <section class="view" id="progressView">
+          <div class="progress-grid">
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Assessment</p>
+                  <h2>Skill Radar</h2>
+                </div>
+              </div>
+              <div class="radar-wrap">
+                <canvas id="radarCanvas" width="440" height="330"></canvas>
+              </div>
+            </section>
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Goals</p>
+                  <h2>Active Targets</h2>
+                </div>
+              </div>
+              <div class="goal-list" id="goalList"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="adminView">
+          <div class="admin-hero">
+            <div>
+              <p class="eyebrow">Course builder</p>
+              <h2>Prepare the Full Training Curriculum</h2>
+              <p>Design the pathway players follow: modules, lessons, homework, assessments, and the live coaching checkpoints that connect online work to the court.</p>
+            </div>
+            <button class="primary-button" id="publishCourse">Publish Draft</button>
+          </div>
+
+          <div class="admin-metrics" id="adminMetrics"></div>
+
+          <div class="admin-layout">
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Program structure</p>
+                  <h2>Modules</h2>
+                </div>
+              </div>
+              <div class="source-tabs" id="sourceTabs" aria-label="Module source filter">
+                <button class="source-tab is-active" data-source-filter="all" type="button">All</button>
+                <button class="source-tab" data-source-filter="manual" type="button">My Program</button>
+                <button class="source-tab" data-source-filter="ai" type="button">AI Drafts</button>
+              </div>
+              <div class="module-stack admin-module-stack" id="adminModuleStack"></div>
+              <form class="quick-add" id="moduleForm">
+                <input id="newModuleTitle" type="text" placeholder="Add module, e.g. Elite Finishing" />
+                <button class="primary-button">Add</button>
+              </form>
+              <button class="ghost-button full-width-action" id="addAiSuggestion" type="button">Generate AI Draft Module</button>
+            </section>
+
+            <section class="panel admin-editor" id="adminEditor"></section>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Student pathway</p>
+                  <h2>Assignments</h2>
+                </div>
+              </div>
+              <div class="assignment-panel" id="assignmentPanel"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Live coaching</p>
+                  <h2>Session Blueprint</h2>
+                </div>
+              </div>
+              <div class="session-plan" id="sessionPlan"></div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="goal-modal" id="goalModal">
+      <form method="dialog" class="modal-content">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Coach + parent target</p>
+            <h2>Set a New Goal</h2>
+          </div>
+          <button class="icon-button" value="cancel" aria-label="Close">x</button>
+        </div>
+        <label>
+          Goal name
+          <input id="goalName" type="text" placeholder="Example: Make 7/10 form shots" />
+        </label>
+        <label>
+          Focus area
+          <select id="goalArea">
+            <option>Shooting</option>
+            <option>Ball handling</option>
+            <option>Footwork</option>
+            <option>Defence</option>
+            <option>Decision making</option>
+          </select>
+        </label>
+        <label>
+          Target progress
+          <input id="goalProgress" type="range" min="10" max="100" value="40" />
+        </label>
+        <button class="primary-button" id="saveGoal" value="default">Add Goal</button>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
